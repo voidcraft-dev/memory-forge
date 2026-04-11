@@ -178,7 +178,14 @@ This project is licensed under the [MIT License](LICENSE).
 
 ## 🌍 Community
 
-- [LINUX DO](https://linux.do) — 开源社区友链
+Thank you to the LINUX DO community for your support!
+感谢 LINUX DO 社区的支持！
+
+<a href="https://linux.do">
+  <img src="https://img.shields.io/badge/LINUX%20DO-Community-6366f1?logo=discourse&logoColor=white" alt="LINUX DO" />
+</a>
+
+Tech discussions, AI frontiers, AI experience sharing — all at [LINUX DO](https://linux.do)!
 
 ## 👤 Author
 
@@ -349,7 +356,14 @@ memory-forge/
 
 ## 🌍 社区
 
-- [LINUX DO](https://linux.do) — 开源社区友链
+感谢 LINUX DO 社区的支持！
+Thank you to the LINUX DO community for your support!
+
+<a href="https://linux.do">
+  <img src="https://img.shields.io/badge/LINUX%20DO-Community-6366f1?logo=discourse&logoColor=white" alt="LINUX DO" />
+</a>
+
+技术讨论、人工智能前沿、人工智能体验分享——尽在 [LINUX DO](https://linux.do)！
 
 ## 👤 作者
 
