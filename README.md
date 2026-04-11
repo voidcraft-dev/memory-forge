@@ -25,6 +25,23 @@ Memory Forge is a **local-first** AI session management tool that lets you brows
 
 **100% local, zero cloud dependency.** Your data never leaves your machine.
 
+## 📸 Screenshots
+
+<div align="center">
+  <img src="docs/images/1.png" alt="Dashboard" width="45%" />
+  <img src="docs/images/2.png" alt="Session List" width="45%" />
+</div>
+
+<div align="center">
+  <img src="docs/images/3.png" alt="Session Detail" width="45%" />
+  <img src="docs/images/4.png" alt="Edit Log" width="45%" />
+</div>
+
+<div align="center">
+  <img src="docs/images/5.png" alt="Dark Mode" width="45%" />
+  <img src="docs/images/6.png" alt="Multi Platform" width="45%" />
+</div>
+
 ## ✨ Features
 
 - 📊 **Dashboard** — Session statistics + 7-day trend chart
@@ -174,6 +191,23 @@ This project is licensed under the [MIT License](LICENSE).
 记忆锻造是一个**本地优先**的 AI 会话管理工具，让你在一个界面中浏览、编辑和追溯三个主流 AI 编程助手的历史对话。
 
 **100% 本地运行，零云端依赖。** 你的数据不会离开你的电脑。
+
+## 📸 应用截图
+
+<div align="center">
+  <img src="docs/images/1.png" alt="仪表盘" width="45%" />
+  <img src="docs/images/2.png" alt="会话列表" width="45%" />
+</div>
+
+<div align="center">
+  <img src="docs/images/3.png" alt="会话详情" width="45%" />
+  <img src="docs/images/4.png" alt="编辑日志" width="45%" />
+</div>
+
+<div align="center">
+  <img src="docs/images/5.png" alt="暗色模式" width="45%" />
+  <img src="docs/images/6.png" alt="多平台" width="45%" />
+</div>
 
 ## ✨ 功能特性
 

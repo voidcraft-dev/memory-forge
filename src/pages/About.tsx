@@ -265,6 +265,13 @@ export function About() {
                 <ExternalLink className="w-3 h-3" />
               </a>
             </Button>
+            <Button variant="outline" size="sm" className="gap-2" asChild>
+              <a href="https://github.com/voidcraft-dev" target="_blank" rel="noopener noreferrer">
+                <Heart className="w-4 h-4 text-red-400" />
+                VoidCraft
+                <ExternalLink className="w-3 h-3" />
+              </a>
+            </Button>
           </div>
           <p className="text-xs text-muted-foreground/40">MIT License</p>
         </div>
