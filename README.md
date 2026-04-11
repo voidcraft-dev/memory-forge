@@ -176,6 +176,10 @@ Contributions are welcome! Feel free to:
 
 This project is licensed under the [MIT License](LICENSE).
 
+## 🌍 Community
+
+- [LINUX DO](https://linux.do) — 开源社区友链
+
 ## 👤 Author
 
 **VoidCraft** — [GitHub](https://github.com/voidcraft-dev)
@@ -342,6 +346,10 @@ memory-forge/
 ## 📄 开源协议
 
 本项目基于 [MIT 协议](LICENSE) 开源。
+
+## 🌍 社区
+
+- [LINUX DO](https://linux.do) — 开源社区友链
 
 ## 👤 作者
 
