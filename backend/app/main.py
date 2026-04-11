@@ -9,6 +9,7 @@ from fastapi.staticfiles import StaticFiles
 from app.config import FRONTEND_DIST
 from app.db import create_db_and_tables
 from app.routes.api import dashboard_router, router as api_router
+from app.routes.prompts import router as prompts_router
 
 
 @asynccontextmanager
@@ -31,6 +32,7 @@ app.add_middleware(
 # API routes
 app.include_router(dashboard_router)
 app.include_router(api_router)
+app.include_router(prompts_router)
 
 # Serve frontend static files (production mode)
 # Must be registered AFTER api routes so /api/* takes priority

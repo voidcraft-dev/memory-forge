@@ -42,6 +42,10 @@ Memory Forge is a **local-first** AI session management tool that lets you brows
   <img src="docs/images/6.png" alt="Multi Platform" width="45%" />
 </div>
 
+<div align="center">
+  <img src="docs/images/7.png" alt="Prompt Library" width="90%" />
+</div>
+
 ## ✨ Features
 
 - 📊 **Dashboard** — Session statistics + 7-day trend chart
@@ -51,6 +55,7 @@ Memory Forge is a **local-first** AI session management tool that lets you brows
 - 🏷️ **Session aliases** — Give sessions memorable names
 - 📋 **Quick command copy** — Resume / Fork commands one-click copy
 - 🌗 **Dark / Light theme** — Follow system or manual toggle
+- 📚 **Prompt Library** — Save, manage & one-click copy frequently used prompts
 - 🔒 **100% local** — No data leaves your computer
 
 ## 🖥️ Supported Platforms
@@ -229,6 +234,7 @@ Tech discussions, AI frontiers, AI experience sharing — all at [LINUX DO](http
 - 🏷️ **会话别名** — 给会话起一个容易记的名字
 - 📋 **快捷命令复制** — Resume / Fork 命令一键复制
 - 🌗 **暗色 / 亮色主题** — 跟随系统或手动切换
+- 📚 **提示词库** — 保存、管理常用提示词，支持一键复制
 - 🔒 **纯本地运行** — 数据不离开你的电脑
 
 ## 🖥️ 支持平台

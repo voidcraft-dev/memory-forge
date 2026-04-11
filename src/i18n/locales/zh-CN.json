@@ -8,6 +8,7 @@
     "dashboard": "仪表盘",
     "platforms": "平台",
     "about": "关于",
+    "prompts": "提示词库",
     "theme": {
       "dark": "深色模式",
       "light": "浅色模式",
@@ -104,5 +105,37 @@
     "footer": {
       "openSource": "开源免费，本地优先"
     }
+  },
+  "prompts": {
+    "title": "提示词库",
+    "subtitle": "保存、分类、一键复制你的常用提示词",
+    "searchPlaceholder": "搜索提示词名称或内容...",
+    "allTags": "全部",
+    "totalPrompts": "提示词总数",
+    "totalUses": "累计使用",
+    "totalTags": "使用标签",
+    "empty": "暂无提示词",
+    "emptyHint": "点击下方按钮创建你的第一个提示词",
+    "createFirst": "创建第一个提示词",
+    "createNew": "新建提示词",
+    "editPrompt": "编辑提示词",
+    "promptName": "提示词名称",
+    "namePlaceholder": "例如：代码审查专家",
+    "presetTags": "预设标签",
+    "selectedTags": "已选标签 + 自定义标签",
+    "customTagPlaceholder": "输入后按 Enter 添加...",
+    "promptContent": "提示词内容",
+    "contentPlaceholder": "输入你的提示词内容...",
+    "cancel": "取消",
+    "save": "保存",
+    "create": "创建",
+    "copy": "复制",
+    "copied": "已复制",
+    "usedCount": "使用 {{count}} 次",
+    "importExport": "导入/导出",
+    "exportJSON": "导出 JSON",
+    "importJSON": "导入 JSON",
+    "importSuccess": "成功导入 {{count}} 条提示词",
+    "importFailed": "导入失败，请检查 JSON 格式"
   }
 }

@@ -51,3 +51,14 @@ export interface DashboardSummary {
   trend: Array<{ day: string; count: number }>
   recentSessions: Session[]
 }
+
+// Prompt types
+export interface PromptItem {
+  id: number
+  name: string
+  content: string
+  tags: string[]
+  useCount: number
+  createdAt: string
+  updatedAt: string
+}

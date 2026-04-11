@@ -8,6 +8,7 @@
     "dashboard": "Dashboard",
     "platforms": "Platforms",
     "about": "About",
+    "prompts": "Prompt Library",
     "theme": {
       "dark": "Dark Mode",
       "light": "Light Mode",
@@ -104,5 +105,37 @@
     "footer": {
       "openSource": "Open source & free, local-first"
     }
+  },
+  "prompts": {
+    "title": "Prompt Library",
+    "subtitle": "Save, categorize, and one-click copy your favorite prompts",
+    "searchPlaceholder": "Search prompts by name or content...",
+    "allTags": "All",
+    "totalPrompts": "Total Prompts",
+    "totalUses": "Total Uses",
+    "totalTags": "Tags Used",
+    "empty": "No prompts yet",
+    "emptyHint": "Click the button below to create your first prompt",
+    "createFirst": "Create First Prompt",
+    "createNew": "New Prompt",
+    "editPrompt": "Edit Prompt",
+    "promptName": "Prompt Name",
+    "namePlaceholder": "e.g., Code Review Expert",
+    "presetTags": "Preset Tags",
+    "selectedTags": "Selected + Custom Tags",
+    "customTagPlaceholder": "Type and press Enter to add...",
+    "promptContent": "Prompt Content",
+    "contentPlaceholder": "Enter your prompt content...",
+    "cancel": "Cancel",
+    "save": "Save",
+    "create": "Create",
+    "copy": "Copy",
+    "copied": "Copied",
+    "usedCount": "Used {{count}} times",
+    "importExport": "Import/Export",
+    "exportJSON": "Export JSON",
+    "importJSON": "Import JSON",
+    "importSuccess": "Successfully imported {{count}} prompts",
+    "importFailed": "Import failed. Please check JSON format."
   }
 }

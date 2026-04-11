@@ -2,7 +2,7 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useAppStore } from '@/stores/appStore'
-import { Sun, Moon, Monitor, LayoutDashboard, ChevronLeft, ChevronRight, Info, Languages } from 'lucide-react'
+import { Sun, Moon, Monitor, LayoutDashboard, ChevronLeft, ChevronRight, Info, Languages, BookOpen } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 
 const platforms = [
@@ -78,6 +78,22 @@ export function Sidebar() {
           >
             <LayoutDashboard className="w-5 h-5 flex-shrink-0" />
             {!sidebarCollapsed && <span className="font-medium">{t('sidebar.dashboard')}</span>}
+          </Button>
+
+          {/* Prompt Library */}
+          <Button
+            variant="ghost"
+            className={cn(
+              "w-full h-12 rounded-xl transition-all",
+              sidebarCollapsed ? "justify-center" : "justify-start gap-3",
+              currentPlatform === 'prompts'
+                ? "bg-gradient-to-r from-green-500/20 to-cyan-500/20 text-green-400 border border-green-500/30 shadow-lg shadow-green-500/10"
+                : "hover:bg-muted/50"
+            )}
+            onClick={() => setCurrentPlatform('prompts')}
+          >
+            <BookOpen className="w-5 h-5 flex-shrink-0" />
+            {!sidebarCollapsed && <span className="font-medium">{t('sidebar.prompts')}</span>}
           </Button>
 
           {/* Platforms */}

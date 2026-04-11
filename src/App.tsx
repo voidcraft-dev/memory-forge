@@ -6,6 +6,7 @@ import { SessionDetail } from '@/components/session/SessionDetail'
 import { EditLogPanel } from '@/components/session/EditLogPanel'
 import { Dashboard } from '@/pages/Dashboard'
 import { About } from '@/pages/About'
+import { PromptLibrary } from '@/pages/PromptLibrary'
 
 // Helper function to apply theme to DOM
 function applyTheme(theme: 'dark' | 'light' | 'system') {
@@ -39,21 +40,23 @@ function App() {
       {/* Main Content */}
       <div className="flex-1 flex overflow-hidden">
         {/* Session List */}
-        {currentPlatform !== 'dashboard' && currentPlatform !== 'about' && (
+        {currentPlatform !== 'dashboard' && currentPlatform !== 'about' && currentPlatform !== 'prompts' && (
           <SessionList />
         )}
 
-        {/* Detail / Dashboard / About */}
+        {/* Detail / Dashboard / About / Prompts */}
         {currentPlatform === 'dashboard' ? (
           <Dashboard />
         ) : currentPlatform === 'about' ? (
           <About />
+        ) : currentPlatform === 'prompts' ? (
+          <PromptLibrary />
         ) : (
           <SessionDetail />
         )}
 
         {/* Edit Log Panel */}
-        {currentPlatform !== 'dashboard' && currentPlatform !== 'about' && <EditLogPanel />}
+        {currentPlatform !== 'dashboard' && currentPlatform !== 'about' && currentPlatform !== 'prompts' && <EditLogPanel />}
       </div>
     </div>
   )

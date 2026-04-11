@@ -26,3 +26,17 @@ class EditLog(SQLModel, table=True):
     created_at: datetime = Field(
         default_factory=lambda: datetime.now(UTC), nullable=False
     )
+
+
+class Prompt(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(max_length=255, nullable=False)
+    content: str = Field(nullable=False)
+    tags: str = Field(default="", max_length=1024)  # comma-separated tags
+    use_count: int = Field(default=0)
+    created_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC), nullable=False
+    )
+    updated_at: datetime = Field(
+        default_factory=lambda: datetime.now(UTC), nullable=False
+    )
