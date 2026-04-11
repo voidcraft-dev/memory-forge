@@ -2,9 +2,9 @@
 
 # 🔥 Memory Forge
 
-**Local AI Session Manager — Browse, Edit & Trace Your AI Conversations**
+**Stop resetting. Start editing.**
 
-本地 AI 会话管理工具 — 统一浏览、编辑和追溯你的 AI 编程对话
+本地 AI 会话管理工具 — 改写 AI 记忆，精准操控对话历史
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?logo=python&logoColor=white)](https://python.org)
@@ -21,7 +21,11 @@
 
 ## What is Memory Forge?
 
-Memory Forge is a **local-first** AI session management tool that lets you browse, edit, and trace conversations from three popular AI coding assistants — all in one place.
+**Stop resetting. Start editing.**
+
+AI went off track? Don't restart — edit the history directly.
+
+Memory Forge lets you modify AI's "memory" in Claude Code / Codex / OpenCode: inject context, fix errors, remove noise, then seamlessly continue the conversation.
 
 **100% local, zero cloud dependency.** Your data never leaves your machine.
 
@@ -48,9 +52,9 @@ Memory Forge is a **local-first** AI session management tool that lets you brows
 
 ## ✨ Features
 
+- 🧠 **Memory Manipulation** — Edit any message in AI conversation history. Inject context, remove noise, fix AI's wrong assumptions — then seamlessly continue the session.
 - 📊 **Dashboard** — Session statistics + 7-day trend chart
 - 💬 **Multi-platform browsing** — Claude Code / Codex CLI / OpenCode in one view
-- ✏️ **Message editing** — Edit user, assistant, and thinking blocks
 - 📝 **Edit audit log** — Read-only change tracking with diff view
 - 🏷️ **Session aliases** — Give sessions memorable names
 - 📋 **Quick command copy** — Resume / Fork commands one-click copy
@@ -204,7 +208,11 @@ Tech discussions, AI frontiers, AI experience sharing — all at [LINUX DO](http
 
 ## 什么是记忆锻造？
 
-记忆锻造是一个**本地优先**的 AI 会话管理工具，让你在一个界面中浏览、编辑和追溯三个主流 AI 编程助手的历史对话。
+**停止重开，直接编辑。**
+
+AI 对话走偏了？别重新开始 — 直接改掉历史记录。
+
+记忆锻造让你在 Claude Code / Codex / OpenCode 中直接编辑 AI 的"记忆"：注入上下文、纠正错误、删除废话，然后无缝继续对话。
 
 **100% 本地运行，零云端依赖。** 你的数据不会离开你的电脑。
 
@@ -227,9 +235,9 @@ Tech discussions, AI frontiers, AI experience sharing — all at [LINUX DO](http
 
 ## ✨ 功能特性
 
+- 🧠 **记忆操控** — 编辑 AI 对话历史中的任意消息。注入上下文、删除噪音、纠正 AI 的错误假设 — 然后无缝继续会话。
 - 📊 **仪表盘统计** — 会话数量 + 7 天趋势图
 - 💬 **多平台会话浏览** — Claude Code / Codex CLI / OpenCode 统一视图
-- ✏️ **消息内容编辑** — 编辑用户、助手和思考内容
 - 📝 **修改记录追溯** — 只读审计日志，支持 diff 对比
 - 🏷️ **会话别名** — 给会话起一个容易记的名字
 - 📋 **快捷命令复制** — Resume / Fork 命令一键复制
