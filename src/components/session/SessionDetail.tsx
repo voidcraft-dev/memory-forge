@@ -9,6 +9,7 @@ import { api } from '@/lib/api'
 import { Save, Clock, Pencil, Check, X, User, Bot, Lightbulb, RefreshCw, Terminal, FileText, CheckCircle } from 'lucide-react'
 import { Textarea } from '@/components/ui/textarea'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogBody, DialogFooter } from '@/components/ui/dialog'
+import { useTranslation } from 'react-i18next'
 
 export function SessionDetail() {
   const currentPlatform = useAppStore((s) => s.currentPlatform)
@@ -31,6 +32,7 @@ export function SessionDetail() {
   const [copiedKey, setCopiedKey] = useState<string | null>(null)
   const [refreshing, setRefreshing] = useState(false)
   const [refreshDone, setRefreshDone] = useState(false)
+  const { t } = useTranslation()
 
   // Sync alias title when session detail changes
   useEffect(() => {
@@ -44,8 +46,8 @@ export function SessionDetail() {
           <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-muted to-muted/50 flex items-center justify-center">
             <Clock className="w-8 h-8 text-muted-foreground/50" />
           </div>
-          <p className="text-lg font-medium mb-2">选择会话查看详情</p>
-          <p className="text-sm">从左侧列表选择一个会话</p>
+          <p className="text-lg font-medium mb-2">{t('session.selectToView')}</p>
+          <p className="text-sm">{t('session.selectFromList')}</p>
         </div>
       </div>
     )
@@ -95,7 +97,7 @@ export function SessionDetail() {
       setEditingBlock(null)
     } catch (err) {
       console.error('Failed to save edit:', err)
-      alert('保存失败，请检查后端服务是否正常运行')
+      alert(t('session.saveFailed'))
     }
     setSaving(false)
   }
@@ -159,7 +161,7 @@ export function SessionDetail() {
             ) : (
               <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />
             )}
-            <span className="hidden sm:inline">{refreshDone ? '已刷新' : '刷新'}</span>
+            <span className="hidden sm:inline">{refreshDone ? t('session.refreshed') : t('session.refresh')}</span>
           </Button>
           {/* Command chips - one button per command type (resume / fork) */}
           {Object.entries(sessionDetail.commands || {}).map(([label, command]) => (
@@ -177,7 +179,7 @@ export function SessionDetail() {
             >
               <Terminal className="w-3.5 h-3.5" />
               {copiedKey === label ? (
-                <><Check className="w-3.5 h-3.5" /> 已复制</>
+                <><Check className="w-3.5 h-3.5" /> {t('session.copied')}</>
               ) : (
                 label
               )}
@@ -199,17 +201,17 @@ export function SessionDetail() {
             }}
           >
             <FileText className={cn("w-4 h-4", showEditLog && "text-amber-400")} />
-            <span className="hidden sm:inline">修改记录</span>
+            <span className="hidden sm:inline">{t('session.editLog')}</span>
           </Button>
         </div>
       </header>
       <div className="px-6 py-3 border-b bg-card/30 flex items-center gap-3">
-        <span className="text-xs text-muted-foreground font-medium">别名:</span>
+        <span className="text-xs text-muted-foreground font-medium">{t('session.alias')}:</span>
         <Input
           value={aliasTitle}
           onChange={(e) => setAliasTitle(e.target.value)}
           className="flex-1 max-w-md bg-background/50"
-          placeholder="设置会话别名..."
+          placeholder={t('session.setAlias')}
           onKeyDown={(e) => e.key === 'Enter' && handleSaveAlias()}
         />
         <Button 
@@ -223,7 +225,7 @@ export function SessionDetail() {
           ) : (
             <Check className="w-3 h-3" />
           )}
-          保存
+          {t('session.save')}
         </Button>
       </div>
 
@@ -232,10 +234,10 @@ export function SessionDetail() {
         {(['all', 'user', 'assistant', 'thinking'] as const).map((filter) => {
           const isActive = roleFilter === filter
           const filterConfig = {
-            all: { label: '全部', icon: null, gradient: 'from-slate-500/20 to-slate-600/20', textColor: 'text-slate-400', borderColor: 'border-slate-500/30' },
-            user: { label: '用户', icon: User, gradient: 'from-blue-500/20 to-blue-600/20', textColor: 'text-blue-400', borderColor: 'border-blue-500/40' },
-            assistant: { label: '助手', icon: Bot, gradient: 'from-green-500/20 to-green-600/20', textColor: 'text-green-400', borderColor: 'border-green-500/40' },
-            thinking: { label: '思考', icon: Lightbulb, gradient: 'from-orange-500/20 to-orange-600/20', textColor: 'text-orange-400', borderColor: 'border-orange-500/40' },
+            all: { label: t('session.filter.all'), icon: null, gradient: 'from-slate-500/20 to-slate-600/20', textColor: 'text-slate-400', borderColor: 'border-slate-500/30' },
+            user: { label: t('session.filter.user'), icon: User, gradient: 'from-blue-500/20 to-blue-600/20', textColor: 'text-blue-400', borderColor: 'border-blue-500/40' },
+            assistant: { label: t('session.filter.assistant'), icon: Bot, gradient: 'from-green-500/20 to-green-600/20', textColor: 'text-green-400', borderColor: 'border-green-500/40' },
+            thinking: { label: t('session.filter.thinking'), icon: Lightbulb, gradient: 'from-orange-500/20 to-orange-600/20', textColor: 'text-orange-400', borderColor: 'border-orange-500/40' },
           }
           const config = filterConfig[filter]
           const Icon = config.icon
@@ -273,7 +275,7 @@ export function SessionDetail() {
           )
         })}
         <span className="ml-auto text-xs text-muted-foreground/60">
-          共 {sessionDetail.blocks.length} 条
+          {t('session.totalMessages', { count: sessionDetail.blocks.length })}
         </span>
       </div>
 
@@ -300,9 +302,9 @@ export function SessionDetail() {
                 variant={editingBlock?.role as 'user' | 'assistant' | 'thinking'}
                 className="text-sm px-3 py-1"
               >
-                {editingBlock?.role === 'user' ? '👤 用户' : editingBlock?.role === 'assistant' ? '🤖 助手' : '💭 思考'}
+                {editingBlock?.role === 'user' ? `👤 ${t('session.filter.user')}` : editingBlock?.role === 'assistant' ? `🤖 ${t('session.filter.assistant')}` : `💭 ${t('session.filter.thinking')}`}
               </Badge>
-              <span className="text-base">编辑消息</span>
+              <span className="text-base">{t('session.editMessage')}</span>
             </DialogTitle>
           </DialogHeader>
           <DialogBody className="overflow-auto">
@@ -310,10 +312,10 @@ export function SessionDetail() {
               value={editingBlock?.content || ''}
               onChange={(e) => setEditingBlock(editingBlock ? { ...editingBlock, content: e.target.value } : null)}
               className="min-h-[400px] font-mono text-sm bg-muted/30"
-              placeholder="输入内容..."
+              placeholder={t('session.enterContent')}
             />
             <p className="text-xs text-muted-foreground mt-2">
-              保存后将直接修改原始会话文件
+              {t('session.editWarning')}
             </p>
           </DialogBody>
           <DialogFooter className="gap-2">
@@ -323,7 +325,7 @@ export function SessionDetail() {
               className="gap-1.5"
             >
               <X className="w-4 h-4" />
-              取消
+              {t('session.cancel')}
             </Button>
             <Button 
               onClick={handleSaveEdit}
@@ -335,7 +337,7 @@ export function SessionDetail() {
               ) : (
                 <Save className="w-4 h-4" />
               )}
-              保存修改
+              {t('session.saveChanges')}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -353,9 +355,10 @@ function MessageBlock({
   index: number
   onEdit: () => void
 }) {
+  const { t } = useTranslation()
   const roleConfig = {
     user: { 
-      label: '用户', 
+      label: t('session.filter.user'), 
       icon: User, 
       bgGradient: 'from-blue-500/10 to-blue-500/5',
       borderColor: 'border-l-blue-500',
@@ -363,7 +366,7 @@ function MessageBlock({
       badgeClass: 'bg-blue-500/15 text-blue-400 border-blue-500/30',
     },
     assistant: { 
-      label: '助手', 
+      label: t('session.filter.assistant'), 
       icon: Bot, 
       bgGradient: 'from-green-500/10 to-green-500/5',
       borderColor: 'border-l-green-500',
@@ -371,7 +374,7 @@ function MessageBlock({
       badgeClass: 'bg-green-500/15 text-green-400 border-green-500/30',
     },
     thinking: { 
-      label: '思考', 
+      label: t('session.filter.thinking'), 
       icon: Lightbulb, 
       bgGradient: 'from-orange-500/10 to-orange-500/5',
       borderColor: 'border-l-orange-500',
@@ -429,7 +432,7 @@ function MessageBlock({
               onClick={(e) => { e.stopPropagation(); onEdit() }}
             >
               <Pencil className="w-3 h-3" />
-              编辑此消息
+              {t('session.editThisMessage')}
             </Button>
           </div>
         </div>

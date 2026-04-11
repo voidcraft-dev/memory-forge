@@ -2,7 +2,8 @@ import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { useAppStore } from '@/stores/appStore'
-import { Sun, Moon, Monitor, LayoutDashboard, ChevronLeft, ChevronRight, Info } from 'lucide-react'
+import { Sun, Moon, Monitor, LayoutDashboard, ChevronLeft, ChevronRight, Info, Languages } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const platforms = [
   { key: 'claude', name: 'Claude', icon: 'C', color: 'bg-gradient-to-br from-blue-500 to-indigo-600' },
@@ -18,6 +19,7 @@ export function Sidebar() {
   const setSidebarCollapsed = useAppStore((s) => s.setSidebarCollapsed)
   const theme = useAppStore((s) => s.theme)
   const setTheme = useAppStore((s) => s.setTheme)
+  const { t, i18n } = useTranslation()
 
   const getPlatformCount = (key: string) => {
     return dashboard?.platforms.find(p => p.platform === key)?.count ?? 0
@@ -32,6 +34,13 @@ export function Sidebar() {
     setTheme(themes[nextIndex])
   }
 
+  const toggleLang = () => {
+    const next = i18n.language === 'zh-CN' ? 'en' : 'zh-CN'
+    i18n.changeLanguage(next)
+  }
+
+  const themeLabel = theme === 'dark' ? t('sidebar.theme.dark') : theme === 'light' ? t('sidebar.theme.light') : t('sidebar.theme.system')
+
   return (
     <aside className={cn(
       "h-screen bg-gradient-to-b from-card to-card/80 border-r border-border/50 flex flex-col transition-all duration-300 backdrop-blur-xl",
@@ -45,8 +54,8 @@ export function Sidebar() {
           </div>
           {!sidebarCollapsed && (
             <div className="min-w-0">
-              <h1 className="font-bold text-lg text-foreground">记忆锻造</h1>
-              <p className="text-xs text-muted-foreground/70">Memory Forge</p>
+              <h1 className="font-bold text-lg text-foreground">{t('app.name')}</h1>
+              <p className="text-xs text-muted-foreground/70">{t('app.nameEn')}</p>
             </div>
           )}
         </div>
@@ -68,14 +77,14 @@ export function Sidebar() {
             onClick={() => setCurrentPlatform('dashboard')}
           >
             <LayoutDashboard className="w-5 h-5 flex-shrink-0" />
-            {!sidebarCollapsed && <span className="font-medium">仪表盘</span>}
+            {!sidebarCollapsed && <span className="font-medium">{t('sidebar.dashboard')}</span>}
           </Button>
 
           {/* Platforms */}
           <div className="pt-4">
             {!sidebarCollapsed && (
               <p className="px-3 py-2 text-[10px] font-semibold text-muted-foreground/50 uppercase tracking-widest">
-                平台
+                {t('sidebar.platforms')}
               </p>
             )}
             {platforms.map((platform) => (
@@ -135,8 +144,37 @@ export function Sidebar() {
           </div>
           {!sidebarCollapsed && (
             <div className="flex flex-col items-start">
-              <span className="text-sm font-medium">关于</span>
+              <span className="text-sm font-medium">{t('sidebar.about')}</span>
               <span className="text-[10px] text-muted-foreground/60">About</span>
+            </div>
+          )}
+        </Button>
+
+        {/* Language Toggle */}
+        <Button
+          variant="ghost"
+          className={cn(
+            "w-full h-11 rounded-xl transition-all duration-300",
+            sidebarCollapsed ? "justify-center" : "justify-start gap-3",
+            "hover:bg-gradient-to-r hover:from-cyan-500/10 hover:to-blue-500/10",
+            "bg-gradient-to-r from-cyan-500/5 to-blue-500/5 border border-cyan-500/10"
+          )}
+          onClick={toggleLang}
+        >
+          <div className={cn(
+            "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all duration-300",
+            "bg-gradient-to-br from-cyan-500/20 to-blue-500/20"
+          )}>
+            <Languages className="w-4 h-4 text-cyan-400" />
+          </div>
+          {!sidebarCollapsed && (
+            <div className="flex flex-col items-start">
+              <span className="text-sm font-medium">
+                {i18n.language === 'zh-CN' ? '中文' : 'English'}
+              </span>
+              <span className="text-[10px] text-muted-foreground/60">
+                {t('sidebar.clickToSwitch')}
+              </span>
             </div>
           )}
         </Button>
@@ -167,16 +205,16 @@ export function Sidebar() {
           {!sidebarCollapsed && (
             <div className="flex flex-col items-start">
               <span className="text-sm font-medium">
-                {theme === 'dark' ? '深色模式' : theme === 'light' ? '浅色模式' : '跟随系统'}
+                {themeLabel}
               </span>
               <span className="text-[10px] text-muted-foreground/60">
-                点击切换
+                {t('sidebar.clickToSwitch')}
               </span>
             </div>
           )}
         </Button>
 
-        {/* Collapse Toggle - at bottom */}
+        {/* Collapse Toggle */}
         <Button
           variant="ghost"
           className={cn(
@@ -191,7 +229,7 @@ export function Sidebar() {
           ) : (
             <>
               <ChevronLeft className="w-4 h-4" />
-              <span className="ml-2 text-xs">收起菜单</span>
+              <span className="ml-2 text-xs">{t('sidebar.collapse')}</span>
             </>
           )}
         </Button>

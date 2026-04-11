@@ -57,6 +57,19 @@ class OpenCodePlatform(PlatformAdapter):
                 (session_key,),
             ).fetchall()
 
+        # Handle session not found
+        if session_row is None:
+            return {
+                "platform": self.platform_name,
+                "sessionKey": session_key,
+                "sessionId": session_key,
+                "title": session_key,
+                "aliasTitle": "",
+                "cwd": "",
+                "commands": [],
+                "blocks": [],
+            }
+
         alias = alias_map.get(session_key, "")
         blocks = []
         for row in part_rows:

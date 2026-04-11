@@ -7,9 +7,10 @@ import { Button } from '@/components/ui/button'
 import { useAppStore } from '@/stores/appStore'
 import { api } from '@/lib/api'
 import { RefreshCw, Search, CheckCircle } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import type { Session } from '@/types'
 
-function formatTime(timestamp: string): string {
+function formatTime(timestamp: string, justNowLabel: string): string {
   try {
     const num = parseInt(timestamp)
     let date: Date
@@ -28,7 +29,7 @@ function formatTime(timestamp: string): string {
     const diff = now.getTime() - date.getTime()
     const hours = diff / (1000 * 60 * 60)
     
-    if (hours < 1) return '刚刚'
+    if (hours < 1) return justNowLabel
     if (hours < 24) return `${Math.floor(hours)}h`
     if (hours < 48) return '1d'
     return `${Math.floor(hours / 24)}d`
@@ -61,6 +62,7 @@ export function SessionList() {
   const setSessionDetail = useAppStore((s) => s.setSessionDetail)
   const setEditLog = useAppStore((s) => s.setEditLog)
   const showEditLog = useAppStore((s) => s.showEditLog)
+  const { t } = useTranslation()
 
   // Debounced search
   const debounceRef = useRef<ReturnType<typeof setTimeout>>()
@@ -71,7 +73,6 @@ export function SessionList() {
     }, 300)
   }, [setSearchQuery])
 
-  // Keep local input value for immediate feedback
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -99,11 +100,9 @@ export function SessionList() {
       try {
         const detail = await api.getSessionDetail(currentPlatform, selectedSessionKey)
         setSessionDetail(detail)
-        // Load edit log if panel is open
         if (showEditLog) {
           api.getEditLog(currentPlatform, selectedSessionKey).then(setEditLog).catch(console.error)
         }
-        // Update session list with latest alias
         updateSession(selectedSessionKey, { 
           displayTitle: detail.aliasTitle || detail.title,
           aliasTitle: detail.aliasTitle 
@@ -142,7 +141,7 @@ export function SessionList() {
       <div className="p-5 border-b border-border/50">
         <div className="flex items-center justify-between mb-4">
           <h2 className="font-semibold text-foreground text-lg">
-            {currentPlatform.charAt(0).toUpperCase() + currentPlatform.slice(1)} 会话
+            {currentPlatform.charAt(0).toUpperCase() + currentPlatform.slice(1)} {t('session.sessions')}
           </h2>
           <Button variant="ghost" size="icon" onClick={handleRefresh} disabled={refreshing} className={cn("h-8 w-8 transition-all duration-300", refreshDone && "text-green-400")}>
             {refreshDone ? <CheckCircle className="w-4 h-4" /> : <RefreshCw className={cn("w-4 h-4", refreshing && "animate-spin")} />}
@@ -154,7 +153,7 @@ export function SessionList() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input
             ref={inputRef}
-            placeholder="搜索会话..."
+            placeholder={t('session.search')}
             defaultValue={searchQuery}
             onChange={(e) => debouncedSetSearch(e.target.value)}
             className="pl-10 bg-muted/30 border-border/50"
@@ -170,7 +169,7 @@ export function SessionList() {
               <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-muted/50 flex items-center justify-center">
                 <Search className="w-6 h-6 text-muted-foreground/50" />
               </div>
-              <p className="text-sm text-muted-foreground">暂无会话</p>
+              <p className="text-sm text-muted-foreground">{t('session.noSessions')}</p>
             </div>
           ) : (
             sessions.map((session) => (
@@ -179,6 +178,9 @@ export function SessionList() {
                 session={session}
                 isSelected={selectedSessionKey === session.sessionKey}
                 onClick={() => setSelectedSessionKey(session.sessionKey)}
+                justNowLabel={t('session.justNow')}
+                untitledLabel={t('session.untitled')}
+                noPreviewLabel={t('session.noPreview')}
               />
             ))
           )}
@@ -191,11 +193,17 @@ export function SessionList() {
 function SessionCard({ 
   session, 
   isSelected, 
-  onClick 
+  onClick,
+  justNowLabel,
+  untitledLabel,
+  noPreviewLabel,
 }: { 
   session: Session
   isSelected: boolean
   onClick: () => void
+  justNowLabel: string
+  untitledLabel: string
+  noPreviewLabel: string
 }) {
   const platform = session.platform || 'claude'
   const borderColor = platformBorderColors[platform as keyof typeof platformBorderColors] || platformBorderColors.claude
@@ -229,16 +237,16 @@ function SessionCard({
             "font-semibold text-sm truncate",
             isSelected ? "text-blue-400" : "text-foreground"
           )}>
-            {session.displayTitle || session.sessionId || '未命名会话'}
+            {session.displayTitle || session.sessionId || untitledLabel}
           </h3>
         </div>
         <span className="text-[10px] text-muted-foreground/60 flex-shrink-0 bg-muted/30 px-2 py-1 rounded-md">
-          {formatTime(session.updatedAt)}
+          {formatTime(session.updatedAt, justNowLabel)}
         </span>
       </div>
       
       <p className="text-xs text-muted-foreground/70 line-clamp-2 leading-relaxed">
-        {session.preview || '无预览内容'}
+        {session.preview || noPreviewLabel}
       </p>
       
       {session.cwd && (

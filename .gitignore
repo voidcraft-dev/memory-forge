@@ -11,7 +11,7 @@ lerna-debug.log*
 node_modules
 
 # Frontend build output
-dist
+dist/
 dist-ssr
 *.local
 
@@ -26,6 +26,7 @@ __pycache__/
 backend/data/
 
 # PyInstaller build output
+build/
 backend/build/
 backend/dist/
 
@@ -34,6 +35,17 @@ src-tauri/backend-dist/
 
 # Portable build output
 portable-dist/
+
+# Environment
+.env
+.env.*
+
+# Cache
+.mypy_cache/
+.pytest_cache/
+.ruff_cache/
+coverage/
+.coverage
 
 # Editor directories and files
 .vscode/*
@@ -45,6 +57,7 @@ portable-dist/
 *.njsproj
 *.sln
 *.sw?
+*.sw?
 
 # Tauri build
 src-tauri/target/
@@ -52,3 +65,7 @@ src-tauri/target/
 # OS files
 Thumbs.db
 Desktop.ini
+
+# Temp/backup files
+*.bak
+*.tmp

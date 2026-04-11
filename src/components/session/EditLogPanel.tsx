@@ -6,9 +6,11 @@ import { cn } from '@/lib/utils'
 import { FileText, ArrowRight, Clock, Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import type { EditLogEntry } from '@/types'
+import { useTranslation } from 'react-i18next'
 
 function DiffView({ oldText, newText }: { oldText: string; newText: string }) {
   const [expanded, setExpanded] = useState(false)
+  const { t } = useTranslation()
 
   // Truncate for collapsed view
   const maxLen = 120
@@ -19,10 +21,10 @@ function DiffView({ oldText, newText }: { oldText: string; newText: string }) {
     <div className="space-y-2">
       <div className="rounded-lg bg-red-500/5 border border-red-500/20 p-3">
         <div className="flex items-center gap-1.5 mb-1.5">
-          <span className="text-[10px] font-medium text-red-400/80 uppercase tracking-wider">修改前</span>
+          <span className="text-[10px] font-medium text-red-400/80 uppercase tracking-wider">{t('editLog.before')}</span>
           {!expanded && oldText.length > maxLen && (
             <button onClick={() => setExpanded(true)} className="text-[10px] text-muted-foreground/50 hover:text-foreground">
-              展开
+              {t('editLog.expand')}
             </button>
           )}
         </div>
@@ -33,10 +35,10 @@ function DiffView({ oldText, newText }: { oldText: string; newText: string }) {
       </div>
       <div className="rounded-lg bg-green-500/5 border border-green-500/20 p-3">
         <div className="flex items-center gap-1.5 mb-1.5">
-          <span className="text-[10px] font-medium text-green-400/80 uppercase tracking-wider">修改后</span>
+          <span className="text-[10px] font-medium text-green-400/80 uppercase tracking-wider">{t('editLog.after')}</span>
           {!expanded && newText.length > maxLen && (
             <button onClick={() => setExpanded(true)} className="text-[10px] text-muted-foreground/50 hover:text-foreground">
-              展开
+              {t('editLog.expand')}
             </button>
           )}
         </div>
@@ -54,6 +56,7 @@ export function EditLogPanel() {
   const setShowEditLog = useAppStore((s) => s.setShowEditLog)
 
   const [expandedId, setExpandedId] = useState<number | null>(null)
+  const { t } = useTranslation()
 
   if (currentPlatform === 'dashboard' || !selectedSessionKey) {
     return null
@@ -70,7 +73,7 @@ export function EditLogPanel() {
         <div className="flex items-center justify-between">
           <h2 className="font-semibold text-foreground text-lg flex items-center gap-2">
             <FileText className="w-5 h-5 text-amber-500" />
-            修改记录
+            {t('editLog.title')}
           </h2>
           <Button
             variant="ghost"
@@ -78,11 +81,11 @@ export function EditLogPanel() {
             className="h-7 text-xs"
             onClick={() => setShowEditLog(false)}
           >
-            收起
+            {t('editLog.collapse')}
           </Button>
         </div>
         <p className="text-xs text-muted-foreground/60 mt-1">
-          只读追溯，不可恢复
+          {t('editLog.readonlyTrace')}
         </p>
       </div>
 
@@ -94,15 +97,15 @@ export function EditLogPanel() {
               <div className="w-20 h-20 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-500/20 flex items-center justify-center">
                 <FileText className="w-8 h-8 text-amber-400/60" />
               </div>
-              <p className="text-sm font-medium text-foreground/70">暂无修改记录</p>
+              <p className="text-sm font-medium text-foreground/70">{t('editLog.noRecords')}</p>
               <p className="text-xs text-muted-foreground/60 mt-2 leading-relaxed">
-                编辑消息后<br/>修改记录会自动出现在这里
+                {t('editLog.afterEditHint')}
               </p>
             </div>
           ) : (
             <>
               <div className="text-xs text-muted-foreground/60 mb-2">
-                {editLog.length} 条记录
+                {t('editLog.recordCount', { count: editLog.length })}
               </div>
               {editLog.map((entry) => (
                 <div
@@ -141,7 +144,7 @@ export function EditLogPanel() {
                         onClick={() => setExpandedId(null)}
                       >
                         <EyeOff className="w-3 h-3 mr-1" />
-                        收起
+                        {t('editLog.collapse')}
                       </Button>
                     </>
                   ) : (
@@ -159,7 +162,7 @@ export function EditLogPanel() {
                         onClick={() => setExpandedId(entry.id)}
                       >
                         <Eye className="w-3 h-3" />
-                        查看详情
+                        {t('editLog.viewDetail')}
                       </Button>
                     </>
                   )}
@@ -175,9 +178,9 @@ export function EditLogPanel() {
         <div className="flex items-start gap-2 text-[10px] text-muted-foreground/80">
           <FileText className="w-3 h-3 flex-shrink-0 mt-0.5 text-amber-500" />
           <div>
-            <p className="font-medium text-foreground/70">修改追溯</p>
+            <p className="font-medium text-foreground/70">{t('editLog.traceTitle')}</p>
             <p className="mt-1 leading-relaxed">
-              记录所有编辑操作，仅供查看追溯，不提供恢复功能。
+              {t('editLog.traceDesc')}
             </p>
           </div>
         </div>

@@ -1,0 +1,108 @@
+{
+  "app": {
+    "name": "Memory Forge",
+    "nameEn": "Memory Forge",
+    "loading": "Loading..."
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "platforms": "Platforms",
+    "about": "About",
+    "theme": {
+      "dark": "Dark Mode",
+      "light": "Light Mode",
+      "system": "System"
+    },
+    "switchLang": "Switch Language",
+    "collapse": "Collapse",
+    "clickToSwitch": "Click to switch"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Memory Forge",
+    "subtitle": "Manage and edit your AI conversations",
+    "getStarted": "Get Started",
+    "recent": "Recent",
+    "noSession": "No sessions",
+    "trend7days": "Last 7 Days Trend",
+    "totalSessions": "{{count}} sessions total",
+    "noTrendData": "No trend data",
+    "recentSessions": "Recent Sessions",
+    "untitled": "Untitled Session",
+    "noWorkDir": "No working directory",
+    "countUnit": ""
+  },
+  "session": {
+    "sessions": "Sessions",
+    "search": "Search sessions...",
+    "noSessions": "No sessions",
+    "untitled": "Untitled Session",
+    "noPreview": "No preview",
+    "justNow": "just now",
+    "selectToView": "Select a session to view details",
+    "selectFromList": "Choose a session from the list on the left",
+    "alias": "Alias",
+    "setAlias": "Set session alias...",
+    "save": "Save",
+    "refresh": "Refresh",
+    "refreshed": "Refreshed",
+    "copied": "Copied",
+    "editLog": "Edit Log",
+    "filter": {
+      "all": "All",
+      "user": "User",
+      "assistant": "Assistant",
+      "thinking": "Thinking"
+    },
+    "totalMessages": "{{count}} messages",
+    "editMessage": "Edit Message",
+    "enterContent": "Enter content...",
+    "editWarning": "Saving will directly modify the original session file",
+    "cancel": "Cancel",
+    "saveChanges": "Save Changes",
+    "editThisMessage": "Edit this message",
+    "saveFailed": "Save failed. Please check if the backend service is running."
+  },
+  "editLog": {
+    "title": "Edit Log",
+    "collapse": "Collapse",
+    "readonlyTrace": "Read-only trace, no restore",
+    "noRecords": "No edit records",
+    "afterEditHint": "Edit log will appear here automatically after editing messages",
+    "recordCount": "{{count}} records",
+    "before": "Before",
+    "after": "After",
+    "expand": "Expand",
+    "viewDetail": "View Detail",
+    "traceTitle": "Edit Trace",
+    "traceDesc": "Records all edit operations for traceability only. No restore functionality."
+  },
+  "about": {
+    "description": "Local AI session manager — Browse, edit, and trace conversations from Claude Code, Codex CLI, and OpenCode.",
+    "supportedPlatforms": "Supported Platforms",
+    "techStack": "Tech Stack",
+    "coreFeatures": "Core Features",
+    "platforms": {
+      "claudeDesc": "AI coding assistant by Anthropic",
+      "codexDesc": "AI coding assistant by OpenAI",
+      "opencodeDesc": "Open-source AI coding assistant with multi-model support"
+    },
+    "stats": {
+      "aiPlatforms": "AI Platforms",
+      "externalDeps": "External API Deps",
+      "localRun": "Local Run"
+    },
+    "features": {
+      "dashboard": { "label": "Dashboard Stats", "desc": "Session count + 7-day trend chart" },
+      "multiPlatform": { "label": "Multi-platform Sessions", "desc": "Claude / Codex / OpenCode" },
+      "editMessage": { "label": "Message Editing", "desc": "User / Assistant / Thinking" },
+      "editTrace": { "label": "Edit Trace", "desc": "Read-only audit log, no restore" },
+      "sessionAlias": { "label": "Session Alias", "desc": "Give sessions memorable names" },
+      "quickCopy": { "label": "Quick Command Copy", "desc": "Resume / Fork one-click copy" },
+      "themeMode": { "label": "Dark / Light Theme", "desc": "Follow system / Manual switch" },
+      "localFirst": { "label": "Local-first", "desc": "Data never leaves your machine" }
+    },
+    "footer": {
+      "openSource": "Open source & free, local-first"
+    }
+  }
+}

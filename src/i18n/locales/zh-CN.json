@@ -1,0 +1,108 @@
+{
+  "app": {
+    "name": "记忆锻造",
+    "nameEn": "Memory Forge",
+    "loading": "加载中..."
+  },
+  "sidebar": {
+    "dashboard": "仪表盘",
+    "platforms": "平台",
+    "about": "关于",
+    "theme": {
+      "dark": "深色模式",
+      "light": "浅色模式",
+      "system": "跟随系统"
+    },
+    "switchLang": "切换语言",
+    "collapse": "收起菜单",
+    "clickToSwitch": "点击切换"
+  },
+  "dashboard": {
+    "welcome": "欢迎使用记忆锻造",
+    "subtitle": "管理和编辑你的 AI 对话",
+    "getStarted": "开始使用",
+    "recent": "最近",
+    "noSession": "暂无会话",
+    "trend7days": "最近 7 天趋势",
+    "totalSessions": "共 {{count}} 条会话",
+    "noTrendData": "暂无趋势数据",
+    "recentSessions": "最近会话",
+    "untitled": "未命名会话",
+    "noWorkDir": "无工作目录",
+    "countUnit": "条"
+  },
+  "session": {
+    "sessions": "会话",
+    "search": "搜索会话...",
+    "noSessions": "暂无会话",
+    "untitled": "未命名会话",
+    "noPreview": "无预览内容",
+    "justNow": "刚刚",
+    "selectToView": "选择会话查看详情",
+    "selectFromList": "从左侧列表选择一个会话",
+    "alias": "别名",
+    "setAlias": "设置会话别名...",
+    "save": "保存",
+    "refresh": "刷新",
+    "refreshed": "已刷新",
+    "copied": "已复制",
+    "editLog": "修改记录",
+    "filter": {
+      "all": "全部",
+      "user": "用户",
+      "assistant": "助手",
+      "thinking": "思考"
+    },
+    "totalMessages": "共 {{count}} 条",
+    "editMessage": "编辑消息",
+    "enterContent": "输入内容...",
+    "editWarning": "保存后将直接修改原始会话文件",
+    "cancel": "取消",
+    "saveChanges": "保存修改",
+    "editThisMessage": "编辑此消息",
+    "saveFailed": "保存失败，请检查后端服务是否正常运行"
+  },
+  "editLog": {
+    "title": "修改记录",
+    "collapse": "收起",
+    "readonlyTrace": "只读追溯，不可恢复",
+    "noRecords": "暂无修改记录",
+    "afterEditHint": "编辑消息后修改记录会自动出现在这里",
+    "recordCount": "{{count}} 条记录",
+    "before": "修改前",
+    "after": "修改后",
+    "expand": "展开",
+    "viewDetail": "查看详情",
+    "traceTitle": "修改追溯",
+    "traceDesc": "记录所有编辑操作，仅供查看追溯，不提供恢复功能。"
+  },
+  "about": {
+    "description": "本地 AI 会话管理工具 — 统一浏览、编辑和追溯 Claude Code、Codex CLI、OpenCode 的历史对话。",
+    "supportedPlatforms": "支持平台",
+    "techStack": "技术栈",
+    "coreFeatures": "核心功能",
+    "platforms": {
+      "claudeDesc": "Anthropic 出品的 AI 编程助手",
+      "codexDesc": "OpenAI 出品的 AI 编程助手",
+      "opencodeDesc": "开源 AI 编程助手，支持多种模型"
+    },
+    "stats": {
+      "aiPlatforms": "AI 平台",
+      "externalDeps": "外部依赖 API",
+      "localRun": "本地运行"
+    },
+    "features": {
+      "dashboard": { "label": "仪表盘统计", "desc": "会话数量 + 7 天趋势图" },
+      "multiPlatform": { "label": "多平台会话浏览", "desc": "Claude / Codex / OpenCode" },
+      "editMessage": { "label": "消息内容编辑", "desc": "User / Assistant / Thinking" },
+      "editTrace": { "label": "修改记录追溯", "desc": "只读审计日志，不可恢复" },
+      "sessionAlias": { "label": "会话别名", "desc": "给会话起个容易记的名字" },
+      "quickCopy": { "label": "快捷命令复制", "desc": "Resume / Fork 一键复制" },
+      "themeMode": { "label": "暗色 / 亮色主题", "desc": "跟随系统 / 手动切换" },
+      "localFirst": { "label": "纯本地运行", "desc": "数据不离开你的电脑" }
+    },
+    "footer": {
+      "openSource": "开源免费，本地优先"
+    }
+  }
+}

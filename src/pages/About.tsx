@@ -16,9 +16,12 @@ import {
   Copy,
   Check,
 } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
-const platforms = [
-  {
+const platformKeys = ['claude', 'codex', 'opencode'] as const
+
+const platformConfig = {
+  claude: {
     name: 'Claude Code',
     icon: 'C',
     color: 'from-blue-500 to-indigo-600',
@@ -26,10 +29,10 @@ const platforms = [
     bg: 'from-blue-500/10 to-indigo-500/10',
     command: 'claude --resume <session-id>',
     forkCommand: 'claude --resume <session-id> --fork-session',
-    description: 'Anthropic 出品的 AI 编程助手',
+    descKey: 'about.platforms.claudeDesc',
     dataPath: '~/.claude',
   },
-  {
+  codex: {
     name: 'Codex CLI',
     icon: 'X',
     color: 'from-orange-500 to-red-500',
@@ -37,10 +40,10 @@ const platforms = [
     bg: 'from-orange-500/10 to-red-500/10',
     command: 'codex resume <session-id>',
     forkCommand: null,
-    description: 'OpenAI 出品的 AI 编程助手',
+    descKey: 'about.platforms.codexDesc',
     dataPath: '~/.codex',
   },
-  {
+  opencode: {
     name: 'OpenCode',
     icon: 'O',
     color: 'from-green-500 to-emerald-600',
@@ -48,10 +51,10 @@ const platforms = [
     bg: 'from-green-500/10 to-emerald-500/10',
     command: 'opencode -s <session-id>',
     forkCommand: 'opencode -s <session-id> --fork',
-    description: '开源 AI 编程助手，支持多种模型',
+    descKey: 'about.platforms.opencodeDesc',
     dataPath: '~/.local/share/opencode/opencode.db',
   },
-]
+}
 
 const techStack = [
   { name: 'Python', category: 'Backend', icon: Code2 },
@@ -65,8 +68,14 @@ const techStack = [
   { name: 'Tauri v2', category: 'Desktop', icon: Monitor },
 ]
 
+const featureKeys = [
+  'dashboard', 'multiPlatform', 'editMessage', 'editTrace',
+  'sessionAlias', 'quickCopy', 'themeMode', 'localFirst',
+] as const
+
 export function About() {
   const [copiedCmd, setCopiedCmd] = useState<string | null>(null)
+  const { t } = useTranslation()
 
   const handleCopy = async (cmd: string) => {
     try {
@@ -87,12 +96,12 @@ export function About() {
             <span className="text-white font-bold text-4xl">M</span>
           </div>
           <h1 className="text-4xl font-bold bg-gradient-to-r from-foreground via-foreground to-muted-foreground bg-clip-text text-transparent">
-            记忆锻造
+            {t('app.name')}
           </h1>
-          <p className="text-lg text-muted-foreground mt-2">Memory Forge</p>
+          <p className="text-lg text-muted-foreground mt-2">{t('app.nameEn')}</p>
           <p className="text-sm text-muted-foreground/60 mt-1">v1.0.0</p>
           <p className="text-muted-foreground mt-4 max-w-lg mx-auto leading-relaxed">
-            本地 AI 会话管理工具 — 统一浏览、编辑和追溯 Claude Code、Codex CLI、OpenCode 的历史对话。
+            {t('about.description')}
           </p>
         </div>
 
@@ -101,75 +110,78 @@ export function About() {
           <CardContent className="p-6">
             <h2 className="text-xl font-bold mb-6 flex items-center gap-3">
               <Terminal className="w-6 h-6 text-blue-500" />
-              支持平台
+              {t('about.supportedPlatforms')}
             </h2>
             <div className="space-y-4">
-              {platforms.map((platform) => (
-                <div
-                  key={platform.name}
-                  className={cn(
-                    "rounded-2xl border p-5 bg-gradient-to-r transition-all duration-200",
-                    platform.bg,
-                    platform.border
-                  )}
-                >
-                  <div className="flex items-start gap-4">
-                    <div className={cn(
-                      "w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0 bg-gradient-to-br",
-                      platform.color
-                    )}>
-                      {platform.icon}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-foreground">{platform.name}</h3>
-                        <Badge variant="outline" className="text-[10px]">{platform.dataPath}</Badge>
+              {platformKeys.map((key) => {
+                const platform = platformConfig[key]
+                return (
+                  <div
+                    key={key}
+                    className={cn(
+                      "rounded-2xl border p-5 bg-gradient-to-r transition-all duration-200",
+                      platform.bg,
+                      platform.border
+                    )}
+                  >
+                    <div className="flex items-start gap-4">
+                      <div className={cn(
+                        "w-12 h-12 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg flex-shrink-0 bg-gradient-to-br",
+                        platform.color
+                      )}>
+                        {platform.icon}
                       </div>
-                      <p className="text-sm text-muted-foreground mb-3">{platform.description}</p>
-                      <div className="space-y-2">
-                        <div className="flex items-center gap-2">
-                          <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider w-10 flex-shrink-0">Resume</span>
-                          <code className="flex-1 text-xs bg-background/50 px-3 py-1.5 rounded-lg border border-border/30 font-mono truncate">
-                            {platform.command}
-                          </code>
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            className="h-7 w-7 flex-shrink-0"
-                            onClick={() => handleCopy(platform.command)}
-                          >
-                            {copiedCmd === platform.command ? (
-                              <Check className="w-3 h-3 text-green-400" />
-                            ) : (
-                              <Copy className="w-3 h-3" />
-                            )}
-                          </Button>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-1">
+                          <h3 className="font-semibold text-foreground">{platform.name}</h3>
+                          <Badge variant="outline" className="text-[10px]">{platform.dataPath}</Badge>
                         </div>
-                        {platform.forkCommand && (
+                        <p className="text-sm text-muted-foreground mb-3">{t(platform.descKey)}</p>
+                        <div className="space-y-2">
                           <div className="flex items-center gap-2">
-                            <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider w-10 flex-shrink-0">Fork</span>
+                            <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider w-10 flex-shrink-0">Resume</span>
                             <code className="flex-1 text-xs bg-background/50 px-3 py-1.5 rounded-lg border border-border/30 font-mono truncate">
-                              {platform.forkCommand}
+                              {platform.command}
                             </code>
                             <Button
                               variant="ghost"
                               size="icon"
                               className="h-7 w-7 flex-shrink-0"
-                              onClick={() => handleCopy(platform.forkCommand!)}
+                              onClick={() => handleCopy(platform.command)}
                             >
-                              {copiedCmd === platform.forkCommand ? (
+                              {copiedCmd === platform.command ? (
                                 <Check className="w-3 h-3 text-green-400" />
                               ) : (
                                 <Copy className="w-3 h-3" />
                               )}
                             </Button>
                           </div>
-                        )}
+                          {platform.forkCommand && (
+                            <div className="flex items-center gap-2">
+                              <span className="text-[10px] text-muted-foreground/60 uppercase tracking-wider w-10 flex-shrink-0">Fork</span>
+                              <code className="flex-1 text-xs bg-background/50 px-3 py-1.5 rounded-lg border border-border/30 font-mono truncate">
+                                {platform.forkCommand}
+                              </code>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-7 w-7 flex-shrink-0"
+                                onClick={() => handleCopy(platform.forkCommand!)}
+                              >
+                                {copiedCmd === platform.forkCommand ? (
+                                  <Check className="w-3 h-3 text-green-400" />
+                                ) : (
+                                  <Copy className="w-3 h-3" />
+                                )}
+                              </Button>
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           </CardContent>
         </Card>
@@ -179,7 +191,7 @@ export function About() {
           <CardContent className="p-6">
             <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
               <Layers className="w-6 h-6 text-purple-500" />
-              技术栈
+              {t('about.techStack')}
             </h2>
             <div className="flex flex-wrap gap-2">
               {techStack.map((tech) => {
@@ -204,15 +216,15 @@ export function About() {
             <div className="mt-4 grid grid-cols-3 gap-4 text-center">
               <div className="p-3 rounded-xl bg-muted/30">
                 <p className="text-2xl font-bold text-blue-400">3</p>
-                <p className="text-xs text-muted-foreground">AI 平台</p>
+                <p className="text-xs text-muted-foreground">{t('about.stats.aiPlatforms')}</p>
               </div>
               <div className="p-3 rounded-xl bg-muted/30">
                 <p className="text-2xl font-bold text-green-400">0</p>
-                <p className="text-xs text-muted-foreground">外部依赖 API</p>
+                <p className="text-xs text-muted-foreground">{t('about.stats.externalDeps')}</p>
               </div>
               <div className="p-3 rounded-xl bg-muted/30">
                 <p className="text-2xl font-bold text-purple-400">100%</p>
-                <p className="text-xs text-muted-foreground">本地运行</p>
+                <p className="text-xs text-muted-foreground">{t('about.stats.localRun')}</p>
               </div>
             </div>
           </CardContent>
@@ -223,25 +235,16 @@ export function About() {
           <CardContent className="p-6">
             <h2 className="text-xl font-bold mb-4 flex items-center gap-3">
               <MessageSquare className="w-6 h-6 text-green-500" />
-              核心功能
+              {t('about.coreFeatures')}
             </h2>
             <div className="grid grid-cols-2 gap-3">
-              {[
-                { label: '仪表盘统计', desc: '会话数量 + 7 天趋势图' },
-                { label: '多平台会话浏览', desc: 'Claude / Codex / OpenCode' },
-                { label: '消息内容编辑', desc: 'User / Assistant / Thinking' },
-                { label: '修改记录追溯', desc: '只读审计日志，不可恢复' },
-                { label: '会话别名', desc: '给会话起个容易记的名字' },
-                { label: '快捷命令复制', desc: 'Resume / Fork 一键复制' },
-                { label: '暗色 / 亮色主题', desc: '跟随系统 / 手动切换' },
-                { label: '纯本地运行', desc: '数据不离开你的电脑' },
-              ].map((feature) => (
+              {featureKeys.map((key) => (
                 <div
-                  key={feature.label}
+                  key={key}
                   className="p-3 rounded-xl border border-border/30 bg-muted/10"
                 >
-                  <p className="text-sm font-medium text-foreground">{feature.label}</p>
-                  <p className="text-xs text-muted-foreground/60 mt-0.5">{feature.desc}</p>
+                  <p className="text-sm font-medium text-foreground">{t(`about.features.${key}.label`)}</p>
+                  <p className="text-xs text-muted-foreground/60 mt-0.5">{t(`about.features.${key}.desc`)}</p>
                 </div>
               ))}
             </div>
@@ -252,7 +255,7 @@ export function About() {
         <div className="text-center py-8 space-y-3">
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Heart className="w-4 h-4 text-red-400" />
-            <span className="text-sm">开源免费，本地优先</span>
+            <span className="text-sm">{t('about.footer.openSource')}</span>
           </div>
           <div className="flex items-center justify-center gap-4">
             <Button variant="outline" size="sm" className="gap-2" asChild>

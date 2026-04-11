@@ -1,10 +1,9 @@
 import type { Session, SessionDetail, EditLogEntry, DashboardSummary } from '@/types'
 
 // Dev mode: Vite proxies /api → localhost:8000
-// Production / Tauri: backend serves both frontend and API on same port
-const API_BASE = import.meta.env.DEV
-  ? '/api'
-  : 'http://localhost:8000/api'
+// Production / Tauri: window navigates to http://127.0.0.1:8000 (same-origin)
+// Both cases use relative /api path
+const API_BASE = '/api'
 
 async function fetchJSON<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(url, {

@@ -7,6 +7,7 @@ import { useAppStore } from '@/stores/appStore'
 import { api } from '@/lib/api'
 import { cn } from '@/lib/utils'
 import { LayoutDashboard, Clock, TrendingUp, ChevronRight, MessageSquare, Sparkles, RefreshCw } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 
 const platformConfig = {
   claude: { 
@@ -39,6 +40,7 @@ export function Dashboard() {
   const setSelectedSessionKey = useAppStore((s) => s.setSelectedSessionKey)
   const setSessions = useAppStore((s) => s.setSessions)
   const [loading, setLoading] = useState(false)
+  const { t } = useTranslation()
 
   const loadDashboard = async () => {
     setLoading(true)
@@ -70,9 +72,9 @@ export function Dashboard() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-3xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
-              欢迎使用记忆锻造
+              {t('dashboard.welcome')}
             </h1>
-            <p className="text-muted-foreground mt-1">管理和编辑你的 AI 对话</p>
+            <p className="text-muted-foreground mt-1">{t('dashboard.subtitle')}</p>
           </div>
           <div className="flex items-center gap-2">
             <Button 
@@ -86,7 +88,7 @@ export function Dashboard() {
             </Button>
             <Button variant="outline" className="gap-2" onClick={() => setCurrentPlatform('claude')}>
               <Sparkles className="w-4 h-4" />
-              开始使用
+              {t('dashboard.getStarted')}
             </Button>
           </div>
         </div>
@@ -115,7 +117,7 @@ export function Dashboard() {
                         {platform.count}
                       </p>
                       <p className="text-xs text-muted-foreground/60 mt-2">
-                        {platform.latest ? `最近: ${platform.latest}` : '暂无会话'}
+                        {platform.latest ? `${t('dashboard.recent')}: ${platform.latest}` : t('dashboard.noSession')}
                       </p>
                     </div>
                     <div className={cn(
@@ -138,11 +140,11 @@ export function Dashboard() {
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="flex items-center gap-2">
               <TrendingUp className="w-5 h-5 text-blue-500" />
-              <span>最近 7 天趋势</span>
+              <span>{t('dashboard.trend7days')}</span>
             </CardTitle>
             {dashboard?.trend && (
               <span className="text-xs text-muted-foreground">
-                共 {dashboard.trend.reduce((sum, t) => sum + t.count, 0)} 条会话
+                {t('dashboard.totalSessions', { count: dashboard.trend.reduce((sum, t) => sum + t.count, 0) })}
               </span>
             )}
           </CardHeader>
@@ -154,11 +156,10 @@ export function Dashboard() {
             ) : !dashboard?.trend || dashboard.trend.length === 0 ? (
               <div className="h-40 flex flex-col items-center justify-center text-muted-foreground/50 gap-2">
                 <TrendingUp className="w-8 h-8" />
-                <p className="text-sm">暂无趋势数据</p>
+                <p className="text-sm">{t('dashboard.noTrendData')}</p>
               </div>
             ) : (
               <div className="h-52">
-                {/* Chart area with fixed pixel heights */}
                 <div className="flex items-end justify-between gap-3 h-[180px]">
                   {dashboard.trend.map((item, i) => {
                     const maxCount = Math.max(...dashboard.trend.map(t => t.count || 0), 1)
@@ -166,13 +167,11 @@ export function Dashboard() {
                     
                     return (
                       <div key={i} className="flex-1 flex flex-col items-center group">
-                        {/* Hover tooltip */}
                         <div className="mb-1 opacity-0 group-hover:opacity-100 transition-all">
                           <div className="bg-blue-500 text-white px-2 py-1 rounded text-xs font-medium shadow-lg">
-                            {item.count} 条
+                            {item.count} {t('dashboard.countUnit')}
                           </div>
                         </div>
-                        {/* Bar */}
                         <div 
                           className={cn(
                             "w-full rounded-t-lg transition-all duration-500 cursor-pointer",
@@ -186,7 +185,6 @@ export function Dashboard() {
                             minHeight: '4px'
                           }}
                         />
-                        {/* Date label */}
                         <span className="text-xs text-muted-foreground/60 mt-2 font-medium">
                           {item.day.slice(5)}
                         </span>
@@ -204,7 +202,7 @@ export function Dashboard() {
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle className="flex items-center gap-2">
               <Clock className="w-5 h-5 text-purple-500" />
-              <span>最近会话</span>
+              <span>{t('dashboard.recentSessions')}</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -238,14 +236,14 @@ export function Dashboard() {
                           <div className="min-w-0 flex-1">
                             <div className="flex items-center gap-3 mb-1">
                               <h4 className="font-semibold text-foreground truncate">
-                                {session.title || session.displayTitle || '未命名会话'}
+                                {session.title || session.displayTitle || t('dashboard.untitled')}
                               </h4>
                               <Badge variant="outline" className={cn("text-xs uppercase", config.text)}>
                                 {session.platform}
                               </Badge>
                             </div>
                             <p className="text-sm text-muted-foreground/70 truncate font-mono">
-                              {session.cwd || '无工作目录'}
+                              {session.cwd || t('dashboard.noWorkDir')}
                             </p>
                           </div>
                         </div>

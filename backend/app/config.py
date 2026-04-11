@@ -4,10 +4,11 @@ import os
 
 # Detect if running as PyInstaller bundle
 _frozen = getattr(sys, 'frozen', False)
-_exec_path = Path(sys.executable) if _frozen else Path(__file__).resolve()
 
 if _frozen:
-    # Running as packaged exe — use executable's parent as root
+    # PyInstaller sets sys._MEIPASS to the temp extraction directory
+    _meipass = Path(getattr(sys, '_MEIPASS', ''))
+    _exec_path = Path(sys.executable)
     ROOT_DIR = _exec_path.parent
     BACKEND_DIR = ROOT_DIR
 else:
@@ -31,9 +32,9 @@ else:
 DATABASE_PATH = DATA_DIR / "memoryforge.db"
 DATABASE_URL = f"sqlite:///{DATABASE_PATH}"
 
-# Frontend dist — bundled inside the exe or in project root
+# Frontend dist — bundled inside the PyInstaller exe via _MEIPASS, or in project root for dev
 if _frozen:
-    FRONTEND_DIST = ROOT_DIR / "dist"
+    FRONTEND_DIST = _meipass / "dist"
 else:
     FRONTEND_DIST = ROOT_DIR / "dist"
 
