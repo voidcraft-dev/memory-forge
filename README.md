@@ -17,6 +17,15 @@
 
 ---
 
+> [!NOTE]
+> **🚀 A new version is available: [memory-forge-rs](https://github.com/voidcraft-dev/memory-forge-rs)**
+> v3 is a full rewrite in Rust — no Python, no server, just open and use.
+> This repo (v2, Python backend) is kept for reference. **New users should use [memory-forge-rs](https://github.com/voidcraft-dev/memory-forge-rs).**
+>
+> **🚀 新版本已发布：[memory-forge-rs](https://github.com/voidcraft-dev/memory-forge-rs)**
+> v3 用 Rust 完全重写，无需 Python，无需服务器，打开即用。
+> 本仓库（v2，Python 后端）保留作参考，**新用户请使用 [memory-forge-rs](https://github.com/voidcraft-dev/memory-forge-rs)。**
+
 <a id="english"></a>
 
 ## What is Memory Forge?
